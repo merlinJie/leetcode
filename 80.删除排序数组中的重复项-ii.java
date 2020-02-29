@@ -56,31 +56,18 @@
 // @lc code=start
 class Solution {
     int count = 1;
-    int len = 0;
+    int right = 2;
+    int left = 2;
     public int removeDuplicates(int[] nums) {
-        if(nums.length == 0) return 0;
-        len = nums.length;
-        int i =0;
-        while(i < len) {
-            if(i >0 && nums[i] == nums[i-1]) {
-                count++;
-                if(count > 2 ) {
-                    len = sort(nums, i, len);
-                    i--;
-                }
-            } else {
-                    count = 1;
+        if(nums.length < 2) return nums.length;
+        while(right < nums.length) {
+            if(nums[right] != nums[left-2]) {
+                nums[left] = nums[right];
+                left++;
             }
-            i++;
-        } 
-        return len;
-    }
-
-    public int sort(int[] nums, int index, int length) {
-        for(int i =index; i< nums.length; i++) {
-            nums[i-1] = nums[i];
+            right++;
         }
-        return length-1;
+        return left;
     }
 }
 // @lc code=end
