@@ -35,17 +35,21 @@
 // @lc code=start
 class Solution {
     public void merge(int[] A, int m, int[] B, int n) {
-        for(int i = 0; i < n; i++) {
-            A[m+i] = B[i];
-        }
-        for(int i = 1; i< A.length; i++) {
-            for(int j = 0; j < A.length - i;j++) {
-                if(A[j] > A[j+1]) {
-                    int temp = A[j];
-                    A[j] = A[j+1];
-                    A[j+1] = temp;
-                }
+        int aM = m - 1;
+        int bM = n - 1;
+        int cur = A.length - 1;
+        while(bM >= 0) {
+            if(aM < 0) {
+                A[cur] = B[bM];
+                bM--;
+            } else if(B[bM] > A[aM]) {
+                A[cur] = B[bM];
+                bM--;
+            } else {
+                A[cur] = A[aM];
+                aM--;
             }
+            cur--;
         }
     }
 }
