@@ -64,7 +64,8 @@ import java.util.Queue;
  */
 
 // @lc code=start
-class Solution { 
+class Solution {
+    
     class Node {
         int row;
         int col;
@@ -84,11 +85,14 @@ class Solution {
         int fresh = 1;
         int min = 0;
         int count = 0;
+        int change = 0;
         Queue<Node> queue = new LinkedList<>();
         for(int i = 0; i < grid.length; i++) {
             for(int j = 0; j< grid[0].length; j++) {
                 if(grid[i][j] == rotten) {
                     queue.add(new Node(i, j, 0));
+                } else if(grid[i][j] == fresh) {
+                    count++;
                 }
             }
         }
@@ -101,17 +105,14 @@ class Solution {
                 if(newRow >=0 && newRow < grid.length && newCol >=0 && newCol < grid[0].length) {
                     if(grid[newRow][newCol] == 1) {
                         grid[newRow][newCol] = 2;
+                        change++;
                         queue.add(new Node(newRow, newCol, min + 1));
                     }
                 }
             }
         }
-        for(int[] i : grid) {
-            for(int j : i) {
-                if(j == 1) {
-                    return -1;
-                }
-            }
+        if(count != change) {
+            return -1;
         }
         return min;
     }
