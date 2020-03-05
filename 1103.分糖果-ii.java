@@ -68,19 +68,9 @@ class Solution {
         int[] ans = new int[num_people];
         int temp = 0;
         while(candies > 0) {
-            for(int i = 0; i < num_people; i++) {
-                temp++;
-                if(candies >= 0 && temp < candies) {
-                    ans[i] = ans[i] + temp;
-                    candies = candies - temp;
-                } else if(candies < 0) {
-                    ans[i] = ans[i] + candies + temp;
-                    return ans;
-                } else {
-                    ans[i] = ans[i] + candies;
-                    return ans;
-                }
-            }
+            ans[temp % num_people] += Math.min(candies, temp +1);
+            candies -= Math.min(candies, temp + 1);
+            temp += 1;
         }
         return ans;
     }
