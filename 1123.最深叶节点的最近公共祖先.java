@@ -65,8 +65,23 @@
  * }
  */
 class Solution {
+    TreeNode preNode;
+    int maxDeep;
     public TreeNode lcaDeepestLeaves(TreeNode root) {
+        reverse(root, 0);
+        return preNode;
+    }
 
+    public int reverse(TreeNode root, int deep) {
+        maxDeep = Math.max(deep, maxDeep);
+        if(root == null) return deep;
+        int left = reverse(root.left, deep + 1);
+        int right = reverse(root.right, deep + 1);
+
+        if(left == maxDeep && right == maxDeep) {
+            preNode = root;
+        }
+        return Math.max(left, right);
     }
 }
 // @lc code=end
