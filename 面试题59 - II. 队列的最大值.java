@@ -50,11 +50,13 @@ class MaxQueue {
     }
     
     public int pop_front() {
-        int temp = queue.isEmpty()? -1 : queue.poll();
-        if(!queue2.isEmpty() && temp == queue2.peekFirst()) {
-            queue2.pollFirst();
+        if(queue.isEmpty()) {
+            return -1;
         }
-        return temp;
+        if(queue.peek().intValue() == queue2.peek().intValue()) {
+            queue2.poll();
+        }
+        return queue.poll();
     }
 }
 
