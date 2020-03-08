@@ -1,3 +1,4 @@
+import java.util.Arrays;
 import java.util.HashMap;
 
 /*
@@ -36,26 +37,20 @@ import java.util.HashMap;
 
 // @lc code=start
 class Solution {
-    HashMap<Integer, Integer>  map = new HashMap<>();
     public int coinChange(int[] coins, int amount) {
-        return changeConin(coins, amount);
-    }
-
-    public int changeConin(int[] coins, int amount) {
-        if(map.get(amount) != null)  return map.get(amount);
-        if(amount == 0) return 0;
-        int min = Integer.MAX_VALUE;
-        for (int i : coins) {
-            if(amount - i < 0) continue;
-            int sub = changeConin(coins, amount - i);
-            if(sub == -1) continue;
-            min = Math.min(min, sub + 1);
+        if(coins.length  == 0) return -1;
+        int max = amount + 1;
+        int[] mem = new int[max];
+        Arrays.fill(mem, max);
+        mem[0] = 0;
+        for(int i = 1; i <= amount; i++) {
+            for (int c : coins) {
+                if(c <= i) {
+                    mem[i] = Math.min(mem[i], mem[i - c] + 1);
+                }
+            }
         }
-        int result = min == Integer.MAX_VALUE ? -1 : min;
-        if(result != -1 || map.get(amount) == null || map.get(amount) > result) {
-            map.put(amount, result);
-        }
-        return result;
+        return mem[amount] > amount ? -1: mem[amount];
     }
 }
 // @lc code=end
