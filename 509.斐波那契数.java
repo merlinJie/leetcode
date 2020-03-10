@@ -56,20 +56,21 @@
 
 // @lc code=start
 class Solution {
-    int[] res;
+    int first = 0;
+    int second = 1;
     public int fib(int N) {
-        res = new int[N + 1];
         return getReslut(N);
     }
 
     public int getReslut(int n) {
         if(n == 0 || n == 1) return n;
-        res[0] = 0;
-        res[1] = 1;
-        for(int i = 2; i < n; i++) {
-            res[i] = res[i - 1] + res[i - 2];
+        int res = 0;
+        for(int i = 2; i <= n; i++) {
+            res = first + second;
+            first = second;
+            second = res;
         }
-        return res[n - 1] + res[n - 2];
+        return res;
     }
 }
 // @lc code=end
