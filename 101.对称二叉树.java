@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 import javax.swing.tree.TreeNode;
 
 /*
@@ -50,9 +53,9 @@ import javax.swing.tree.TreeNode;
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
- */
-class Solution {
-    public boolean isSymmetric(TreeNode root) {
+ * 
+ * 递归解法如下
+ *   public boolean isSymmetric(TreeNode root) {
         if(root == null) return true;
         return isMirror(root.left, root.right);
     }
@@ -63,6 +66,28 @@ class Solution {
         boolean leftRes = isMirror(left.right, right.left);
         boolean rightRes = isMirror(left.left, right.right);
         return  (left.val == right.val) && leftRes && rightRes;
+    }
+ */
+class Solution {
+    public boolean isSymmetric(TreeNode root) {
+        Queue<TreeNode> queue = new LinkedList<>();
+        if(root == null) return true;
+        queue.add(root.left);
+        queue.add(root.right);
+        while(!queue.isEmpty()) {
+            TreeNode node1 = queue.poll();
+            TreeNode node2 = queue.poll();
+            if(node1 == null && node2 == null) continue;
+            if(node1 == null || node2 == null) return false;
+
+            if(node1.val != node2.val) return false;
+
+            queue.add(node1.left);
+            queue.add(node2.right);
+            queue.add(node1.right);
+            queue.add(node2.left);
+        }
+        return true;
     }
 }
 // @lc code=end
