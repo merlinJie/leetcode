@@ -1,3 +1,5 @@
+import java.util.Stack;
+
 import javax.swing.tree.TreeNode;
 
 /*
@@ -58,8 +60,8 @@ import javax.swing.tree.TreeNode;
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
- */
-class Solution {
+ * 递归解法
+ * class Solution {
     long preVal = Long.MIN_VALUE;
     public boolean isValidBST(TreeNode root) {
         if(root == null) return true;
@@ -74,6 +76,30 @@ class Solution {
             return false;
         }
         return true;
+    }
+}
+ */
+class Solution {
+    long preVal = Long.MIN_VALUE;
+    public boolean isValidBST(TreeNode root) {
+        if(root == null) return true;
+        Stack<TreeNode> stack = new Stack<>();
+        TreeNode pre = root;
+        long last = Long.MIN_VALUE;
+        while(!stack.isEmpty() || pre != null) {
+            if(pre != null) {
+                stack.add(pre);
+
+                pre = pre.left;
+            } else {
+                TreeNode cur = stack.pop();
+                if(cur.val <= last) return false;
+                last = cur.val;
+                pre = cur.right;
+            }
+        }
+        return true;
+
     }
 }
 // @lc code=end
