@@ -43,10 +43,15 @@ import javax.swing.tree.TreeNode;
  *     TreeNode right;
  *     TreeNode(int x) { val = x; }
  * }
+ * 思路分析：
+ * 首先数组是有序的，遍历二叉树能生成有序的数组只有中序遍历，则先考虑中序
+ * 
+ * 要从素组生成二叉树，并且按照中序遍历，则需要取数组的中间值，递归操作可以按最小的子树考虑，
+ * 每一次都需要取中间值作为root 节点
  */
 class Solution {
     public TreeNode sortedArrayToBST(int[] nums) {
-        return buildBST(nums, nums.length / 2, nums.length / 2 + 1);
+        return buildBST(nums, 0, nums.length - 1);
     }
 
     public TreeNode buildBST(int[] nums, int left, int right) {
@@ -54,11 +59,11 @@ class Solution {
         if(left > right) return null;
 
         TreeNode node = new TreeNode(nums[mid]);
-        TreeNode left = buildBST(nums, left);
-        TreeNode right = buildBST(nums, mid + 1);
+        TreeNode leftNode = buildBST(nums, left, mid - 1);
+        TreeNode rightNode = buildBST(nums, mid + 1, right);
 
-        node.left = left;
-        node.right = right;
+        node.left = leftNode;
+        node.right = rightNode;
         return node;
     }
 }
