@@ -60,7 +60,6 @@ class Solution {
         if(root.left == null && root.right == null) {
             has = sum == count;
         }
-        System.out.println(count + " " + has);
         recursive(root.left, count);
         recursive(root.right, count);
     }
