@@ -25,3 +25,19 @@
 链接：https://leetcode-cn.com/problems/the-masseuse-lcci
 著作权归领扣网络所有。商业转载请联系官方授权，非商业转载请注明出处。
  */
+class Solution {
+    public int massage(int[] nums) {
+        if(nums.length < 1) return 0;
+        if(nums.length == 1) return nums[0];
+        int[][] dp = new int[nums.length][2];
+        int count = 0;
+        dp[0][0] = 0;
+        dp[0][1] = nums[0];
+        for(int i = 1; i < nums.length; i++) {
+            dp[i][0] = Math.max(dp[i-1][0], dp[i-1][1]);
+            dp[i][1] = dp[i-1][0] + nums[i];
+            count = Math.max(dp[i][0], dp[i][1]);
+        }
+        return count;
+    }
+}
