@@ -67,9 +67,32 @@
 
 // @lc code=start
 class Solution {
+    int r[] = {-1, 1, 0, 0};
+    int c[] = {0, 0, -1, 1};
+    int count = 0;
     public int surfaceArea(int[][] grid) {
-
+        for(int i = 0; i < grid.length; i++) {
+            for(int j = 0; j< grid[i].length; j++) {
+                int cur = grid[i][j];
+            if(cur > 0) {
+                    count += 2;
+                    for(int rc = 0; rc < r.length; rc++) {
+                        int r1 = i + r[rc];
+                        int c2 = j + c[rc];
+                        if(r1 >= 0 && c2 >= 0 
+                            && r1 < grid.length 
+                            && c2 < grid[i].length) {
+                            count += Math.max(grid[i][j] - grid[r1][c2], 0);
+                        } else {
+                            count += grid[i][j];
+                        }
+                    }
+            }
+        }
+    }
+    return count;
     }
 }
+
 // @lc code=end
 
