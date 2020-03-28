@@ -75,8 +75,24 @@
 
 // @lc code=start
 class Solution {
+    int count = -1;
     public boolean hasGroupsSizeX(int[] deck) {
+        for(int i = 0; i < deck.length; i++) {
+            x[deck[i]]+=1;
+        }
 
+        for(int i = 0; i< 1000; i++) {
+            if(count == -1) {
+                count = x[i];
+            } else {
+                count = gcd(count, x[i]);
+            }
+        }
+        return count>=2;
+    }
+
+    public int gcd(int x, int y) {
+        return x==0? y: gcd(y%x, x);
     }
 }
 // @lc code=end
