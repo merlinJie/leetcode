@@ -56,8 +56,39 @@
 
 // @lc code=start
 class Solution {
+    int x[] = {-1, 1, 0, 0};
+    int y[] = {0, 0, 1, -1};
     public int maxDistance(int[][] grid) {
+        int r = grid.length;
+        int c = grid[0].length;
 
+        Queue<int[]> areas = new LinkedList<>();
+        for(int i = 0; i < r; i++) {
+            for(int j = 0; j < c; j++) {
+                if(grid[i][j] == 1) {
+                    areas.offer(new int[]{i, j});
+                }
+            }
+        }
+        int[] temp = null;
+        boolean has = false;
+        while(!areas.isEmpty()) {
+            temp = areas.poll();
+            for(int i = 0; i < 4; i++) {
+                int l = x[i] + temp[0];
+                int l1 = y[i] + temp[1];
+                if(l < 0 || l >= r || l1 < 0 || l1 >= c || grid[l][l1] != 0) {
+                    continue;
+                }
+                grid[l][l1] = grid[temp[0]][temp[1]] + 1;
+                has = true;
+                areas.offer(new int[]{l, l1});
+            }
+        }
+        if(temp == null || !has) {
+            return -1;
+        }
+        return grid[temp[0]][temp[1]] - 1;
     }
 }
 // @lc code=end
