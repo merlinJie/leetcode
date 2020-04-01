@@ -46,8 +46,34 @@
 // @lc code=start
 class Solution {
     public int[] sortArray(int[] nums) {
-        Arrays.sort(nums);
+        quickSort(nums, 0, nums.length-1);
         return nums;
+    }
+    
+    public void quickSort(int[] nums, int start, int end) {
+        if(start >= end) return;
+        int left = start;
+        int right = end;
+        int pivot = nums[start];
+        while(left < right) {
+            while(left < right && pivot < nums[right] ) {
+                right--;
+            }
+            if(left < right) {
+                nums[left] = nums[right];
+                left++;
+            }
+            while(left < right && pivot > nums[left]) {
+                left++;
+            }
+           if(left < right) {
+                nums[right] = nums[left];
+                right--;
+            }
+        }
+        nums[left] = pivot;
+        quickSort(nums, start, left-1);
+        quickSort(nums, left + 1, end);
     }
 }
 // @lc code=end
