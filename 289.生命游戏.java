@@ -61,8 +61,40 @@
 // @lc code=start
 class Solution {
     public void gameOfLife(int[][] board) {
+        int[][] temp = new int[board.length][board[0].length];
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0;j < board[0].length;j++) {
+                temp[i][j] = board[i][j];
+            }
+        }
+        int[] row = {0, 1, 0, -1, -1, -1, 1, 1};
+        int[] col = {1, 0, -1, 0, 1, -1, 1, -1};
 
+        int cN = temp.length;
+        int rN = temp[0].length;
+        for(int i = 0; i < cN; i++) {
+            for(int j = 0; j < rN; j++) {
+                int leave = 0;
+                for(int t = 0; t < 8; t++) {
+                    int a = row[t] + i;
+                    int b = col[t] + j;
+                    if(a < 0 || a >= cN || b < 0 || b >= rN)
+                        continue;
+
+                    if(temp[a][b] == 1) {
+                        leave++;
+                    }
+                }
+                if(leave < 2 || leave> 3) {
+                    board[i][j] = 0;
+                } else if((leave == 2 || leave == 3) && temp[i][j] == 1) {
+                    board[i][j] = 1;
+                } else if(leave == 3 && temp[i][j] == 0) {
+                    board[i][j] = 1;
+                }
+            }
+        }
     }
-}
+}}
 // @lc code=end
 
