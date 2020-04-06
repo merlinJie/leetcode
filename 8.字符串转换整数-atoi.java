@@ -95,7 +95,7 @@ class Solution {
         while(i < str.length() && Character.isDigit(str.charAt(i))) {
             int num = str.charAt(i) - '0';
             
-             if(result > (Integer.MAX_VALUE - num) / 10){
+            if(result > (Integer.MAX_VALUE - num) / 10){
                 return flag > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
             }
 
