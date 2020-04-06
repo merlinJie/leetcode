@@ -78,8 +78,32 @@
 // @lc code=start
 class Solution {
     public int myAtoi(String str) {
+        if(str.isBlank()) return 0;
+        int flag = 1;
+        int i = 0;
+        int result = 0;
+        while(str.charAt(i) == ' ') i++;
 
-        
+        if(str.charAt(i) == '-') {
+            flag = -1;
+            i++;
+        } else if(str.charAt(i) == '+') {
+            flag = 1;
+            i++;
+        }
+
+        while(i < str.length() && Character.isDigit(str.charAt(i))) {
+            int num = str.charAt(i) - '0';
+            
+             if(result > (Integer.MAX_VALUE - num) / 10){
+                return flag > 0 ? Integer.MAX_VALUE : Integer.MIN_VALUE;
+            }
+
+            result = result * 10 + num;
+            i++;
+        }
+
+        return flag * result;
     }
 }
 // @lc code=end
