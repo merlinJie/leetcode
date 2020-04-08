@@ -30,7 +30,20 @@
 // @lc code=start
 class Solution {
     public int trap(int[] height) {
-
+        Stack<Integer> stack = new Stack<>();
+        int ans = 0;
+        for(int i = 0; i < height.length; i++) {
+            while(!stack.isEmpty() && height[stack.peek()] < height[i]) {
+                int cur = stack.pop();
+                if(stack.isEmpty()) break;
+                int left = stack.peek();
+                int right = height[i];
+                int h = Math.min(height[left], right ) - height[cur];
+                ans += h * (i - left - 1);
+            }
+            stack.add(i);
+        }
+        return ans;
     }
 }
 // @lc code=end
