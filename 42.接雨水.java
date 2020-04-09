@@ -38,7 +38,7 @@ class Solution {
                 if(stack.isEmpty()) break;
                 int left = stack.peek();
                 int right = height[i];
-                int h = Math.min(height[left], right ) - height[cur];
+                int h = Math.min(height[left], right) - height[cur];
                 ans += h * (i - left - 1);
             }
             stack.add(i);
