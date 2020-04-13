@@ -44,8 +44,22 @@
  * }
  */
 class Solution {
+    String preTag = "->";
+    List<String> list = new ArrayList<>();
     public List<String> binaryTreePaths(TreeNode root) {
+        getString(root, "");
+        return list;
+    }
 
+    public void getString(TreeNode root, String val) {
+        if(root == null) return;
+        if(root.left == null && root.right == null) {
+            val = val + root.val;
+            list.add(val);
+        }
+        val = val + root.val + preTag;
+        getString(root.left, val);
+        getString(root.right, val);
     }
 }
 // @lc code=end
