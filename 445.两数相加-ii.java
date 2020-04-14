@@ -61,13 +61,9 @@ class Solution {
         boolean needPlus = false;
         while(!stack2.isEmpty() || !stack1.isEmpty() || (pre != null && needPlus)) {
             int cur = 0;
-            if(!stack2.isEmpty() && !stack1.isEmpty()) {
-                cur = stack1.pop() + stack2.pop();
-            } else if(!stack2.isEmpty() && stack1.isEmpty()) {
-                cur = stack2.pop();
-            } else if(stack2.isEmpty() && !stack1.isEmpty()){
-                cur = stack1.pop();
-            }
+            cur += stack1.isEmpty() ? 0: stack1.pop();
+            cur += stack2.isEmpty() ? 0: stack2.pop();
+
             if(pre != null && needPlus) {
                cur += 1;
             }
