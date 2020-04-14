@@ -43,8 +43,45 @@
  * }
  */
 class Solution {
+    Stack<Integer> stack1 = new Stack<>();
+    Stack<Integer> stack2 = new Stack<>();
     public ListNode addTwoNumbers(ListNode l1, ListNode l2) {
-
+        ListNode list1 = l1;
+        while(list1 != null) {
+            stack1.push(list1.val);
+            list1 = list1.next;
+        }
+        ListNode list2 = l2;
+        while(list2 != null) {
+            stack2.push(list2.val);
+            list2 = list2.next;
+        }
+        ListNode pre = null;
+        ListNode curNode = pre;
+        boolean needPlus = false;
+        while(!stack2.isEmpty() || !stack1.isEmpty() || (pre != null && needPlus)) {
+            int cur = 0;
+            if(!stack2.isEmpty() && !stack1.isEmpty()) {
+                cur = stack1.pop() + stack2.pop();
+            } else if(!stack2.isEmpty() && stack1.isEmpty()) {
+                cur = stack2.pop();
+            } else if(stack2.isEmpty() && !stack1.isEmpty()){
+                cur = stack1.pop();
+            }
+            if(pre != null && needPlus) {
+               cur += 1;
+            }
+            if(cur >= 10) {
+                needPlus = true;
+            } else {
+                needPlus = false;
+            }
+            curNode = new ListNode(cur % 10);
+            curNode.next = pre;
+            pre = curNode;
+        }
+      
+        return curNode;
     }
 }
 // @lc code=end
