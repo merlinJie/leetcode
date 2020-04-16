@@ -64,7 +64,35 @@
 // @lc code=start
 class Solution {
     public int[][] updateMatrix(int[][] matrix) {
+        int m = matrix.length;
+        int n = matrix[0].length;
+        Queue<int[]> queue = new LinkedList<>();
+        boolean[][] visited = new boolean[m][n];
+        int[][] res = new int[m][n];
+        for(int i = 0; i < m; i++) {
+            for(int j = 0; j < n; j++) {
+                if(matrix[i][j] == 0) {
+                    queue.add(new int[]{i,j});
+                }
+            }
+        }
+        int[] rx = {1, -1, 0, 0};
+        int[] ry = {0, 0, 1, -1};
+        while(!queue.isEmpty()) {
+            int[] cur = queue.poll();
+            for(int k = 0; k < 4; k++) {
+                int x = rx[k] + cur[0];
+                int y = ry[k] + cur[1];
+                    
+                if(x >= 0 && y >=0 && x < m && y < n && matrix[x][y] == 1 && !visited[x][y]) {
+                    res[x][y] = res[cur[0]][cur[1]] + 1;
+                    visited[x][y] = true;
+                    queue.add(new int[]{x, y});
+                }
+            }
+        }
 
+        return res;
     }
 }
 // @lc code=end
