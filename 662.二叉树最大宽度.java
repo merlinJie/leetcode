@@ -95,7 +95,30 @@
  */
 class Solution {
     public int widthOfBinaryTree(TreeNode root) {
-
+        Queue<TreeNode> queue = new LinkedList<>();
+        LinkedList<Integer> list = new LinkedList<>();
+        queue.add(root);
+        list.add(1);
+        int max = 1;
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            for(int i = 0; i < size; i++) {
+                TreeNode cur = queue.poll();
+                int index = list.removeFirst();
+                if(cur.left != null) {            
+                    queue.add(cur.left);
+                    list.add(2 * index);
+                } 
+                if(cur.right != null) {
+                    queue.add(cur.right);
+                    list.add(2 * index +1);
+                }
+            }
+            if(list.size() >= 2) {
+                max = Math.max(max, list.getLast() - list.getFirst() +1);
+            }
+        }
+        return max;
     }
 }
 // @lc code=end
