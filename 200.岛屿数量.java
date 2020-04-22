@@ -46,40 +46,37 @@
 class Solution {
     public int numIslands(char[][] grid) {
         if(grid.length ==0 ) return 0;
-        int[] x = {0,0,-1,1};
-        int[] y = {-1,1,0,0};
 
         int m = grid.length;
         int n = grid[0].length;
-        Queue<int[]> queue = new LinkedList<>();
         int count = 0;
         for(int i = 0; i< m; i++){
             for(int j = 0; j< n; j++) {
                 if(grid[i][j] == '1') {
-                    queue.add(new int[]{i,j});
-                      while(!queue.isEmpty()) {
-                        int[] cur = queue.poll();
-                        int curR = cur[0];
-                        int curC = cur[1];
-                        for(int k = 0; k < 4; k++) {
-                            int curX = curR + x[k];
-                            int curY = curC + y[k];
-                            if(curX < m && curX >=0 && curY < n && curY >= 0) {
-                               if(grid[curX][curY] == '1') {
-                                    grid[curX][curY] = '0';
-                                    queue.add(new int[]{curX, curY});
-                                }
-                            }
-                        }
-                       
-                    }
                     count += 1;
+                    dfs(grid, i, j);
                 }
             }
         }
-    
-      
         return count;
+    }
+
+    public void dfs(char[][] grid, int curX, int curY) {
+        int m = grid.length;
+        int n = grid[0].length;
+        if(curX >= m || curX < 0 || curY >= n || curY < 0) {
+            return;
+        }
+        if(grid[curX][curY] == '0') {
+            return;
+        }
+        if(grid[curX][curY] == '1') {
+            grid[curX][curY] = '0';
+        }
+        dfs(grid, curX - 1, curY);
+        dfs(grid, curX + 1, curY);
+        dfs(grid, curX, curY - 1);
+        dfs(grid, curX, curY + 1);
     }
 }
 // @lc code=end
