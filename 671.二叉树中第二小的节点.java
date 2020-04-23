@@ -57,8 +57,26 @@
  * }
  */
 class Solution {
+    int result = -1;
+    int min = -1;
     public int findSecondMinimumValue(TreeNode root) {
+        if(root == null) return -1;
+        min = root.val;
+        findMin(root);
+        return result;
+    }
 
+    public void findMin(TreeNode root) {
+        if(root == null) return;
+        if(result == -1 && root.val > min) {
+            result = root.val;
+            return;
+        } else if(root.val < result && root.val > min) {
+            result = root.val;
+            return;
+        }
+        findMin(root.left);
+        findMin(root.right);
     }
 }
 // @lc code=end
