@@ -69,9 +69,43 @@
  * }
  */
 class Solution {
-    public TreeNode deleteNode(TreeNode root, int key) {
-        // todo 26  9 pm
+
+    public int preNode(TreeNode root) {
+        TreeNode cur = root.left;
+        while(cur.right != null) {
+            cur = cur.right;
+        }
+        return cur.val;
     }
+
+    public int nextNode(TreeNode root) {
+        TreeNode cur = root.right;
+        while(cur.left != null) {
+            cur = cur.left;
+        }
+        return cur.val;
+    }
+
+    public TreeNode deleteNode(TreeNode root, int key) {
+        if(root == null) return null;
+        if(root.val < key) {
+            root.right = deleteNode(root.right, key);
+        } else if(root.val > key) {
+            root.left = deleteNode(root.left, key);
+        } else if(root.val == key) {
+            if(root.left == null && root.right == null) {
+                root = null;
+            } else if(root.left != null) {
+                root.val = preNode(root);
+                root.left = deleteNode(root.left, root.val);
+            } else {
+                root.val = nextNode(root);
+                root.right = deleteNode(root.right, root.val);
+            }
+        }
+        return root;
+    }
+
 }
 // @lc code=end
 
