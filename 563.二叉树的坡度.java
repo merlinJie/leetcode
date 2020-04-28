@@ -66,8 +66,7 @@ class Solution {
         int left = helpFind(root.left);
         int right = helpFind(root.right);
         resule += Math.abs(left - right);
-        System.out.println(Math.abs(left - right));
-
+// 
         return root.val + left + right;
     }
 }
