@@ -55,9 +55,22 @@ class Node {
 };
 */
 
+
 class Solution {
     public int maxDepth(Node root) {
-        
+        if(root == null) return 0;
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        int res = 0;
+        while(!queue.isEmpty()) {
+            int size = queue.size();
+            res += 1;
+            for(int i = 0; i < size; i ++) {
+                Node cur = queue.poll();
+                queue.addAll(cur.children);
+            }
+        }
+        return res;
     }
 }
 // @lc code=end
