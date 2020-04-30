@@ -61,14 +61,14 @@
  */
 class Solution {
     public TreeNode constructMaximumBinaryTree(int[] nums) {
-        return helpConstructMax(nums, 0, nums.length - 1);
+        return helpConstructMax(nums, 0, nums.length);
     }
 
     public TreeNode helpConstructMax(int[] nums, int l, int r) {
+        if(l == r) return null;
         int maxIndex = findMaxIndex(nums, l, r);
-        if(-1 == maxIndex) return null;
         TreeNode root = new TreeNode(nums[maxIndex]);
-        root.left = helpConstructMax(nums, l, maxIndex - 1);
+        root.left = helpConstructMax(nums, l, maxIndex);
         root.right = helpConstructMax(nums, maxIndex + 1, r);
         return root;
     }
@@ -76,7 +76,7 @@ class Solution {
     public int findMaxIndex(int[] nums, int l, int r) {
         int max = Integer.MIN_VALUE;
         int maxIndex = -1;
-        for(int i = l; i <= r; i++) {
+        for(int i = l; i < r; i++) {
             if(nums[i] > max) {
                 max = nums[i];
                 maxIndex = i;
