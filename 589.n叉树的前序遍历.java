@@ -50,20 +50,23 @@ class Node {
 };
 */
 
+
 class Solution {
     public List<Integer> preorder(Node root) {
         List<Integer> result = new ArrayList<>();
-        helpPreOrder(root, result);
+        if(root == null) return result;
+        Stack<Node> stack = new Stack<>();
+        stack.add(root);
+        while(!stack.isEmpty()) {
+            Node cur = stack.pop();
+            result.add(cur.val);
+            Collections.reverse(cur.children);
+            for(int i = 0; i < cur.children.size(); i++) {
+                stack.add(cur.children.get(i));
+            }
+        }
         return result;
     }
-
-    public void helpPreOrder(Node root, List<Integer> list) {
-        if(root == null) return;
-        list.add(root.val);
-        for(Node node : root.children) {
-            helpPreOrder(node, list);
-        }
-    }
-}
+}}
 // @lc code=end
 
