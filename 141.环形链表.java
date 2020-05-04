@@ -67,16 +67,17 @@
  * }
  */
 public class Solution {
-    List<ListNode> nodes = new ArrayList<>();
     public boolean hasCycle(ListNode head) {
-        ListNode temp = head;
-        while(temp != null) {
-        
-            if(nodes.contains(temp)) {
+        if(head == null) return false;
+        if(head.next == null) return false;
+        ListNode low= head;
+        ListNode fast = head;
+        while(low != null && fast != null && fast.next != null) {
+            low = low.next;
+            fast = fast.next.next;
+            if(low.equals(fast)) {
                 return true;
             }
-            nodes.add(temp);
-            temp = temp.next;
         }
         return false;
     }
