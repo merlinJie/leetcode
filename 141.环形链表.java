@@ -67,8 +67,18 @@
  * }
  */
 public class Solution {
+    List<ListNode> nodes = new ArrayList<>();
     public boolean hasCycle(ListNode head) {
+        ListNode temp = head;
+        while(temp != null) {
         
+            if(nodes.contains(temp)) {
+                return true;
+            }
+            nodes.add(temp);
+            temp = temp.next;
+        }
+        return false;
     }
 }
 // @lc code=end
