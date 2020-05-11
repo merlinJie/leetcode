@@ -82,16 +82,17 @@
  *     TreeNode(int x) { val = x; }
  * }
  */
-public TreeNode removeLeafNodes(TreeNode root, int target) {
-    if(root == null) return null;
-    root.left = removeLeafNodes(root.left, target);
-    root.right = removeLeafNodes(root.right, target);
-    if(target == root.val && root.left == null && root.right == null) {
-        root = null;
-        return null;
+class Solution {
+    public TreeNode removeLeafNodes(TreeNode root, int target) {
+        if(root == null) return null;
+        root.left = removeLeafNodes(root.left, target);
+        root.right = removeLeafNodes(root.right, target);
+        if(target == root.val && root.left == null && root.right == null) {
+            root = null;
+            return null;
+        }
+        return root;
     }
-    return root;
-}
 }
 // @lc code=end
 
