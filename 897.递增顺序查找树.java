@@ -71,25 +71,23 @@
  * }
  */
 class Solution {
-    List<Integer> list = new ArrayList<>();
+    TreeNode cur;
     public TreeNode increasingBST(TreeNode root) {
+        TreeNode ans = new TreeNode(0);
+        cur = ans;
+
         gen(root);
-        if(list.size() == 0) return root;
-        TreeNode nNode = new TreeNode(list.get(0));
-        TreeNode pre = nNode;
-        for(int i = 1; i < list.size(); i++) {
-            TreeNode temp = new TreeNode(list.get(i));
-            pre.left = null;
-            pre.right = temp;
-            pre = temp;
-        }
-        return nNode;
+        
+        return ans.right;
     }
 
     public void gen(TreeNode root) {
         if(root == null) return;
         gen(root.left);
-        list.add(root.val);
+        root.left = null;
+        cur.right = root;
+        cur = root;
+
         gen(root.right);
     }
 }
