@@ -69,21 +69,8 @@
 
 // @lc code=start
 class Solution {
-    public int singleNumber(int[] nums) {
-        Arrays.sort(nums);
-        int temp = 0;
-        int i = 0;
-        while(i < nums.length) {
-            if(i == nums.length -1) {
-                return nums[i];
-            }
-            if(nums[i] != nums[i +1]) {
-                return nums[i];
-            }
-            i += 2;
-        }
+    public boolean validateBinaryTreeNodes(int n, int[] leftChild, int[] rightChild) {
 
-        return temp;
     }
 }
 // @lc code=end
