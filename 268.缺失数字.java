@@ -1,3 +1,5 @@
+import java.util.Arrays;
+
 /*
  * @lc app=leetcode.cn id=268 lang=java
  *
@@ -35,7 +37,20 @@
 // @lc code=start
 class Solution {
     public int missingNumber(int[] nums) {
-
+        Arrays.sort(nums);
+        if(nums.length == 1) {
+            return nums[0] == 0 ? nums[0] + 1 : 0;
+        }
+        for (int i = 0; i < nums.length; i++) {
+            if(i != nums[i]) {
+                return i;
+            } else {
+                if(i == nums.length - 1) {
+                    return i + 1;
+                }
+            }
+        }
+        return 0;
     }
 }
 // @lc code=end
