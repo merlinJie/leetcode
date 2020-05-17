@@ -39,7 +39,7 @@ import java.util.Map;
 class Solution {
     public int firstUniqChar(String s) {
         if(s == null || s.length() == 0) return -1;
-        Map<String, Integer> maps = new LinkedHashMap();
+        Map<String, Integer> maps = new HashMap<>();
         for (char cs : s.toCharArray()) {
             if(maps.get(Character.toString(cs)) != null) {
                 maps.put(Character.toString(cs), maps.get(Character.toString(cs)) + 1);
@@ -47,16 +47,9 @@ class Solution {
                 maps.put(Character.toString(cs), 1);
             }
         }
-        String temp = null;
-        for (Map.Entry<String, Integer> t : maps.entrySet()) {
-            if(t.getValue() == 1 && temp == null) {
-                temp = t.getKey();
-            }
-        }
         char[] ars = s.toCharArray();
-        System.out.println(temp);
         for (int i = 0; i < ars.length; i++) {
-            if(temp != null && temp.equals(Character.toString(ars[i]))) {
+            if(maps.get(Character.toString(ars[i])) == 1) {
                 return i;
             }
         } 
