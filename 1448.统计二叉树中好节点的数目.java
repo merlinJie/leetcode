@@ -74,26 +74,19 @@
  */
 class Solution {
     int count = 0;
-    TreeNode pre = null;
 
     public int goodNodes(TreeNode root) {
         if(root == null) return 0;
-        pre = root;
-        helpHandelGoodNodes(root, root);
+        helpHandelGoodNodes(root, Integer.MIN_VALUE);
         return count;        
     }
 
-    public void helpHandelGoodNodes(TreeNode root, TreeNode max) {
+    public void helpHandelGoodNodes(TreeNode root,int max) {
         if(root == null) return;
-        if(root.val >= pre.val && root.val >= max.val) {
-            helpHandelGoodNodes(root.left, root);
-            helpHandelGoodNodes(root.right, root);
-            count += 1;
-        } else {
-            helpHandelGoodNodes(root.left, max);
-            helpHandelGoodNodes(root.right, max);
-        }
-        
+        max = Math.max(root.val, max);
+        if(max == root.val) count+=1;
+        helpHandelGoodNodes(root.left, max);
+        helpHandelGoodNodes(root.right, max);
     }
 }
 // @lc code=end
