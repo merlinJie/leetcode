@@ -77,8 +77,19 @@
  * }
  */
 class Solution {
+    int count = 0;
     public int distributeCoins(TreeNode root) {
+        dfs(root);
+        return count;
+    }
 
+    public int dfs(TreeNode root) {
+        if(root == null) return 0;
+        int rVal = root.val - 1;
+        int left = dfs(root.left);
+        int right = dfs(root.right);
+        count = count + Math.abs(left) + Math.abs(right);
+        return rVal + left + right;
     }
 }
 // @lc code=end
