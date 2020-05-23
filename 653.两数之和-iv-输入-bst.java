@@ -62,7 +62,7 @@
  * }
  */
 class Solution {
-    List<Integer> sets = new ArrayList<>();
+    Set<Integer> sets = new HashSet<>();
     public boolean findTarget(TreeNode root, int k) {
         if(root == null) return false;
         if(sets.contains(k - root.val)) {
@@ -71,6 +71,7 @@ class Solution {
         sets.add(root.val);
         return findTarget(root.left, k) || findTarget(root.right, k);
     }
+
 }
 // @lc code=end
 
