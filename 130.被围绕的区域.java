@@ -42,8 +42,38 @@
 
 // @lc code=start
 class Solution {
+    int[] directionR = {0, 0, 1, -1};
+    int[] directionL = {1, -1, 0, 0};
+        
     public void solve(char[][] board) {
+        
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if((i == 0 || i == board.length - 1 || j == 0 || j == board[0].length - 1) && board[i][j] == 'O') {
+                    dfs(board, i, j);
+                }
+            }
+        }
+        for(int i = 0; i < board.length; i++) {
+            for(int j = 0; j < board[0].length; j++) {
+                if(board[i][j] == 'O') {
+                    board[i][j] = 'X';
+                } else if(board[i][j] == 'x') {
+                    board[i][j] = 'O';
+                }
+            }
+        }
+    }
 
+    public void dfs(char[][] board, int x, int y) {
+        board[x][y] = 'x';
+        for(int i = 0; i < 4; i++) {
+            int x1 = x + directionL[i];
+            int y1 = y + directionR[i];
+            if(x1 >= 0 && y1 >= 0 && x1 < board.length && y1 < board[0].length && board[x1][y1] == 'O') {
+                dfs(board, x1, y1);
+            }
+        }
     }
 }
 // @lc code=end
