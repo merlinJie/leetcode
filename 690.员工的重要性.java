@@ -59,26 +59,23 @@ class Employee {
 */
 
 class Solution {
-    public int getImportance(List<Employee> employees, int id) {
-        int importanceCount = 0;
-        Map<Integer, Employee> emps = new HashMap<>();
+    Map<Integer, Employee> emps = new HashMap<>();
 
+    public int getImportance(List<Employee> employees, int id) {
         for(Employee emp : employees) {
             emps.put(emp.id, emp);
         }
 
-        Stack<Integer> ids = new Stack<>();
-        ids.push(id);
-        while(!ids.isEmpty()) {
-            int empId = ids.pop();
-            Employee employee = emps.get(empId);
-            importanceCount += employee.importance;
-            for(int emp : employee.subordinates) {
-                ids.push(emp);
-            }
-        }
-        return importanceCount;
+        return dfs(id);
+    }
 
+    public int dfs(int empId) {
+        Employee emp =  emps.get(empId);
+        int count = emp.importance;
+        for (int id: emp.subordinates) { 
+            count += dfs(id) ;
+        }
+        return count;
     }
 }
 // @lc code=end
