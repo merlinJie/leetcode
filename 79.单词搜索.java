@@ -64,7 +64,6 @@ class Solution {
         if(i < 0 || j < 0 || i >= bord.length || j >= bord[0].length || bord[i][j] != word.charAt(start)) {
             return false;
         }
-        char c = bord[i][j];
         bord[i][j] = '*';
         for(int[] dir: dirs) {
             int newRow = i + dir[0], newCol = j + dir[1];
@@ -72,7 +71,7 @@ class Solution {
                 return true;
             }
         }
-        bord[i][j] = c;
+        bord[i][j] = word.charAt(start);
         return false;
     }
 }
