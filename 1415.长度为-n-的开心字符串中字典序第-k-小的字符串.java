@@ -78,8 +78,27 @@
 
 // @lc code=start
 class Solution {
+    List<String> sts = new ArrayList<>();
     public String getHappyString(int n, int k) {
-        
+        char[] cs = new char[]{'a', 'b', 'c'};
+        backTracking(cs, new StringBuilder(), n, k);
+        return sts.size() < k ? "" : sts.get(k - 1);
+    } 
+
+    public void backTracking(char[] source, StringBuilder builder, int n, int k) {
+        if(sts.size() == k) return;
+        if(builder.length() == n) {
+            sts.add(builder.toString());
+            return;
+        }
+        for(int i = 0; i < source.length; i++) {
+            if(builder.length() > 0 && builder.charAt(builder.length() - 1) == source[i]) {
+                continue;
+            }
+            builder.append(source[i]);
+            backTracking(source, builder, n, k);
+            builder.deleteCharAt(builder.length() - 1);
+        }
     }
 }
 // @lc code=end
