@@ -43,7 +43,7 @@ class Solution {
             out.add(new ArrayList(temp));
             return;
         }
-        for(int i = start; i <= n; i++) {
+        for(int i = start; i <= n - (k - temp.size() - 1); i++) {
             temp.add(i);
             backTrack(n, k , i+1, temp);
             temp.removeLast();
