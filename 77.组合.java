@@ -32,8 +32,22 @@
 
 // @lc code=start
 class Solution {
+    List<List<Integer>> out = new ArrayList<>();
     public List<List<Integer>> combine(int n, int k) {
+        backTrack(n, k, 1, new LinkedList<Integer>());
+        return out;
+    }
 
+    public void backTrack(int n, int k, int start, LinkedList<Integer> temp) {
+        if(temp.size() == k) {
+            out.add(new ArrayList(temp));
+            return;
+        }
+        for(int i = start; i <= n; i++) {
+            temp.add(i);
+            backTrack(n, k , i+1, temp);
+            temp.removeLast();
+        }
     }
 }
 // @lc code=end
