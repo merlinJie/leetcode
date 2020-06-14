@@ -46,22 +46,36 @@
 
 // @lc code=start
 class Solution {
-    int[] results = new int{1,2,3,4,1, 2, 4, 8, 16, 32};
+    int[] results = new int[]{1,2,4,8,1, 2, 4, 8, 16, 32};
     List<String> listTemp = new ArrayList<>();
-    ArrayList<Integer> list = new ArrayList<>();
+    List<List<Integer>> list = new ArrayList<>();
     public List<String> readBinaryWatch(int num) {
         dfs(num, new LinkedList<Integer>(), 0);
-        for(int i = 0; i < ) {
-
+        for(int i = 0; i < list.size(); i++) {
+            int hour = 0;
+            int mins = 0;
+            for(int n : list.get(i)) {
+                if(n <= 3) {
+                    hour += results[n];
+                } else {
+                    mins += results[n];
+                }
+            }
+            if(hour > 11 || mins > 59) {
+                continue;
+            }
+            String time = mins < 10 ? "0" + mins : mins + "";
+            listTemp.add(hour + ":" + time);
         }
+        return listTemp;
     }
 
     public void dfs(int num, LinkedList<Integer> temp, int start) {
         if(temp.size() == num) {
-            list.add(temp.toString());
+            list.add(new ArrayList(temp));
             return;
         }
-        for(int i = start; i <= num; i++) {
+        for(int i = start; i <= 9; i++) {
             temp.add(i);
             dfs(num, temp, i + 1);
             temp.removeLast();
