@@ -46,8 +46,27 @@
 
 // @lc code=start
 class Solution {
+    int[] results = new int{1,2,3,4,1, 2, 4, 8, 16, 32};
+    List<String> listTemp = new ArrayList<>();
+    ArrayList<Integer> list = new ArrayList<>();
     public List<String> readBinaryWatch(int num) {
+        dfs(num, new LinkedList<Integer>(), 0);
+        for(int i = 0; i < ) {
 
+        }
+    }
+
+    public void dfs(int num, LinkedList<Integer> temp, int start) {
+        if(temp.size() == num) {
+            list.add(temp.toString());
+            return;
+        }
+        for(int i = start; i <= num; i++) {
+            temp.add(i);
+            dfs(num, temp, i + 1);
+            temp.removeLast();
+        }
+        
     }
 }
 // @lc code=end
