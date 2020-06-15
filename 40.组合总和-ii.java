@@ -57,7 +57,7 @@ class Solution {
     }
 
     public void dsf(int[] candidates, int target, LinkedList<Integer> temp, int start) {
-        if(target == 0 && !out.contains(temp)) {
+        if(target == 0) {
             out.add(new ArrayList(temp));
             return;
         }
