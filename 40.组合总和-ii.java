@@ -62,7 +62,10 @@ class Solution {
             return;
         }
         for(int i = start; i < candidates.length; i++) {
-            if(target - candidates[i] < 0) {
+            if (i > start && candidates[i] == candidates[i - 1]) {
+                continue;
+            }
+            if (target - candidates[i] < 0) {
                 return;
             }
             target -= candidates[i];
