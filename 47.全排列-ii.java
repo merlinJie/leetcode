@@ -39,13 +39,16 @@ class Solution {
     }
 
     public void dfs(int[] nums, boolean visted[], LinkedList<Integer> temp) {
-        if(temp.size() == nums.length && !out.contains(temp)) {
+        if(temp.size() == nums.length) {
             out.add(new ArrayList(temp));
             return;
         }
 
         for(int i = 0; i < nums.length; i++) {
             if(visted[i]) {
+                continue;
+            }
+            if(i > 0 && nums[i] == nums[i - 1] && !visted[i - 1]) {
                 continue;
             }
             visted[i] = true;
