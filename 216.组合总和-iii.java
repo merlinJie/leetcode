@@ -38,8 +38,23 @@
 
 // @lc code=start
 class Solution {
+    List<List<Integer>> out = new ArrayList<>();
     public List<List<Integer>> combinationSum3(int k, int n) {
+        dfs(k, n, 1, new LinkedList<Integer>());
+        return out;
+    }
 
+    public void dfs(int k, int n, int start, LinkedList<Integer> temp) {
+        if(k == temp.size() && n == 0) {
+            out.add(new ArrayList(temp));
+            return;
+        }
+
+        for(int i = start; i <= 9; i++) {
+            temp.add(i);
+            dfs(k, n - i, i + 1, temp);
+            temp.removeLast();
+        }
     }
 }
 // @lc code=end
