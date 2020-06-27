@@ -57,6 +57,7 @@ class Solution {
             if(temps.contains(nums[i])) {
                 return;
             }
+            
             temps.add(nums[i]);
             backTracking(temps, nums, i + 1);
             temps.remove(Integer.valueOf(nums[i]));
