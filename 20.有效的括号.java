@@ -61,29 +61,24 @@ import java.util.Stack;
 // @lc code=start
 class Solution {
     public boolean isValid(String s) {
-        if(s == null ) return false;
-        if( s.isEmpty() ) return true;
-        Stack<String> start = new Stack<>();
-        HashMap<String, String> lr = new HashMap<>();
-        lr.put("(", ")");
-        lr.put("{", "}");
-        lr.put("[", "]");
-
-        for (char c : s.toCharArray()) {
-            var tempC = String.valueOf(c);
-            if(lr.containsKey(tempC)) {
-                start.add(tempC);
-            }
-            if(lr.containsValue(tempC)) {
-                if(!start.isEmpty() && lr.get(start.peek()).equals(tempC)) {
-                    start.pop();
+        Stack<Character> st = new Stack();
+        for (int i = 0; i < s.length(); i++) {
+            char temp = s.charAt(i);
+            if (!st.isEmpty()) {
+                if (temp == ')' && st.peek() == '(') {
+                    st.pop();
+                } else if (temp == '}' && st.peek() == '{') {
+                    st.pop();
+                } else if (temp == ']' && st.peek() == '[') {
+                    st.pop();
                 } else {
-                    return false;
+                    st.push(temp);
                 }
+            } else {
+                st.push(temp);
             }
         }
-        return start.isEmpty();
+        return st.isEmpty();
     }
 }
 // @lc code=end
-
